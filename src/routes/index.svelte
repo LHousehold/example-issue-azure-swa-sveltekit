@@ -1,3 +1,7 @@
+<script context="module">
+  export const ssr = false;
+</script>
+
 <script>
   import { onMount } from 'svelte';
 
@@ -12,12 +16,11 @@
   });
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<h1 class="seethis">This should be light grey</h1>
 {x}
 
 <style>
-  p {
-    color: blue;
+  .seethis {
+    color: #f1f1f1;
   }
 </style>

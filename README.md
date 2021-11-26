@@ -1,7 +1,30 @@
-# Recreating the issue
+# Recreating the issue (on v0.8.0)
 
 Should run npm install to install required packages.
 Then, running swa start should use the swa-cli.config.js configuration to run the dev server and set up the swa proxy (4280 -> 3000).
+
+I'm using SvelteKit which is based on Vite.
+
+After downgrading to 0.8.0 to workaround the issue found below, I am experiencing missing CSS content.
+As far as it looks, certain files aren't being routed to correctly, causing this CSS issue.
+
+Specifically, this path when loaded using port 3000 contains the CSS that appears to be missing. Visiting http://localhost:3000/ loads the CSS correctly.
+http://localhost:3000/src/routes/index.svelte?svelte&type=style&lang.css
+
+When this exact same path is loaded using the swa cli on port 4280, different content is returned:
+http://localhost:4280/src/routes/index.svelte?svelte&type=style&lang.css
+
+The different content from the previous path is actually what is returned when this is requested:
+http://localhost:3000/src/routes/index.svelte / http://localhost:4280/src/routes/index.svelte
+
+Which implies that the query parameters aren't being applied for this kind of content.
+
+
+# Notes on previous issue (with v0.8.1)
+
+Should run npm install to install required packages.
+Then, running swa start should use the swa-cli.config.js configuration to run the dev server and set up the swa proxy (4280 -> 3000).
+
 Some javascript is run server-side on compilation, which executes correctly. But some code is meant to execute client-side, which doesn't run.
 Client-side code is located in src/routes/index.svelte
 I'm seeing these errors in the console:
